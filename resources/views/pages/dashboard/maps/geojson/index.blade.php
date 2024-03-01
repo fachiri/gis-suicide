@@ -25,6 +25,7 @@
 							<tr>
 								<th>Nama Wilayah</th>
 								<th>File</th>
+								<th>Ukuran</th>
 								<th style="white-space: nowrap">Aksi</th>
 							</tr>
 						</thead>
@@ -33,6 +34,7 @@
 								<tr>
 									<td>{{ $geojson->area }}</td>
 									<td>{{ $geojson->file }}</td>
+									<td>{{ $geojson->size }}</td>
 									<td>
 										<x-modal.delete :id="'deleteModal-' . $geojson->uuid" :route="route('dashboard.maps.geojson.destroy', $geojson->uuid)" :data="$geojson->area" />
 									</td>

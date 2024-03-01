@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreGeojsonRequest;
 use App\Models\Geojson;
+use App\Utils\FileUtils;
 use Illuminate\Support\Facades\Storage;
 
 class GeojsonController extends Controller
@@ -11,6 +12,18 @@ class GeojsonController extends Controller
     public function index()
     {
         $geojsons = Geojson::all();
+
+        foreach ($geojsons as $geojson) {
+            $filePath = public_path('storage/uploads/geojsons/' . $geojson->file);
+
+            if (file_exists($filePath)) {
+                $fileSize = filesize($filePath);
+                $humanFileSize = FileUtils::formatSizeUnits($fileSize);
+                $geojson->size = $humanFileSize;
+            } else {
+                $geojson->size = 'File not found';
+            }
+        }
 
         return view('pages.dashboard.maps.geojson.index', compact('geojsons'));
     }

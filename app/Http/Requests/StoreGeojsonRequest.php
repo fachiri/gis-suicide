@@ -15,9 +15,8 @@ class StoreGeojsonRequest extends FormRequest
 
     public function rules(): array
     {
-        // dd($this->file('file'));
         return [
-            'area' => 'required',
+            'area' => 'required|unique:geojsons,area',
             'file' => ['required', 'file', new GeojsonFile, 'max:10240']
         ];
     }
