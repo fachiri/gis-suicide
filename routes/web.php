@@ -5,7 +5,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\GeojsonController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\PerpetratorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SecurityController;
@@ -29,9 +31,11 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['web', 'auth'])->gro
     Route::prefix('master')->name('master.')->middleware(['roles:' . UserRole::ADMIN])->group(function () {
         Route::resource('/users', UserController::class)->names('user');
         Route::put('/users/{user}/update/password', [UserController::class, 'update_password'])->name('user.update.password');
+        Route::resource('/perpetrators', PerpetratorController::class)->names('perpetrators');
     });
     Route::prefix('maps')->name('maps.')->middleware(['roles:' . UserRole::ADMIN])->group(function () {
-        Route::get('/maps', [MapController::class, 'index'])->name('index');
+        Route::get('/', [MapController::class, 'index'])->name('index');
+        Route::resource('/geojson', GeojsonController::class)->names('geojson');
     });
     Route::prefix('admins')->name('admins.')->middleware(['roles:' . UserRole::MANAGER])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('index');

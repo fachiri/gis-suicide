@@ -31,6 +31,10 @@
 	                        'label' => 'Pengguna',
 	                        'link' => route('dashboard.master.user.index'),
 	                    ],
+											(object) [
+	                        'label' => 'Pelaku',
+	                        'link' => route('dashboard.master.perpetrators.index'),
+	                    ],
 	                ],
 	            ],
 	            (object) [

@@ -5,52 +5,59 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePerpetratorRequest;
 use App\Http\Requests\UpdatePerpetratorRequest;
 use App\Models\Perpetrator;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Http\Request;
 
 class PerpetratorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $data = Perpetrator::all();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '
+                        <a href="' . route('dashboard.master.perpetrators.show', $row->uuid) . '" class="btn btn-primary btn-sm">
+                            <i class="bi bi-list-ul"></i>
+                            Detail
+                        </a> 
+                        ';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('pages.dashboard.master.perpetrators.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('pages.dashboard.master.perpetrators.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StorePerpetratorRequest $request)
     {
-        //
+        try {
+            Perpetrator::create($request->all());
+
+            return redirect()->back()->with('success', 'Data berhasil ditambahkan.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors($th->getMessage())->withInput();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Perpetrator $perpetrator)
     {
-        //
+        return view('pages.dashboard.master.perpetrators.show', compact('perpetrator'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Perpetrator $perpetrator)
     {
-        //
+        return view('pages.dashboard.master.perpetrators.edit', compact('perpetrator'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdatePerpetratorRequest $request, Perpetrator $perpetrator)
     {
         //

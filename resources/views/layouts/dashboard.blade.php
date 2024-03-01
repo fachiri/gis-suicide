@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>{{ config('app.name') }} - @yield('title')</title>
+		<title>{{ $setting->app_name }} - @yield('title')</title>
 
 		<link rel="shortcut icon" href="./assets/compiled/svg/favicon.svg" type="image/x-icon">
 		<link rel="shortcut icon"

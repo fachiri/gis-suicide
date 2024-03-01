@@ -6,24 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
-class Perpetrator extends Model
+class Geojson extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'gender',
-        'age',
-        'education',
-        'address',
-        'marital_status',
-        'occupation',
-        'incident_date',
-        'suicide_method',
-        'suicide_tool',
-        'description',
-        'latitude',
-        'longitude'
+        'area',
+        'file'
     ];
 
     public function getRouteKeyName(): string

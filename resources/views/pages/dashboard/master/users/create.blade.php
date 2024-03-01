@@ -22,12 +22,12 @@
 						<x-form.input layout="horizontal" type="date" name="birthday" label="Tanggal Lahir" placeholder="Tanggal Lahir.." />
 						<x-form.select layout="horizontal" name="gender" label="Jenis Kelamin" :options="[
 						    (object) [
-						        'label' => 'Laki-laki',
-						        'value' => 'male',
+						        'label' => App\Constants\UserGender::MALE,
+						        'value' => App\Constants\UserGender::MALE,
 						    ],
 						    (object) [
-						        'label' => 'Perempuan',
-						        'value' => 'female',
+						        'label' => App\Constants\UserGender::FEMALE,
+						        'value' => App\Constants\UserGender::FEMALE,
 						    ],
 						]" />
 					</x-form.layout.horizontal>
