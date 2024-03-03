@@ -65,7 +65,7 @@
 	<script type="text/javascript">
 		$(function() {
 			const table = $('.data-table').DataTable({
-				// processing: true,
+				processing: true,
 				serverSide: true,
 				ajax: "{{ route('dashboard.master.perpetrators.index') }}",
 				columns: [{
@@ -87,7 +87,7 @@
 			});
 
 			$('.filter-select').change(function() {
-				table.column(2).search($(this).val()).draw();
+				table.column(1).search($(this).val()).draw();
 			});
 		});
 	</script>

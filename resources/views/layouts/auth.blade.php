@@ -33,7 +33,7 @@
 				</div>
 				<div class="col-lg-7 d-none d-lg-block bg-primary p-0">
 					@if ($setting->auth_bg)
-						<img src="{{ asset('storage/uploads/settings/' . $setting->auth_bg) }}" alt="Background" class="object-fit-cover w-100 h-100 opacity-25">
+						<img src="{{ asset('storage/uploads/settings/' . $setting->auth_bg) }}" alt="Background" class="object-fit-cover w-100 h-100">
 					@endif
 				</div>
 			</div>

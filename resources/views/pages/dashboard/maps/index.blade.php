@@ -8,11 +8,13 @@
 @push('css')
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+	<link rel="stylesheet" href="{{ asset('css/extensions/leaflet.legend.css') }}">
 @endpush
 @section('content')
 	<section class="row">
 		<div class="col-12">
-			<div class="card shadow-lg">
+			<div class="card shadow-lg
+			">
 				<div class="card-header d-flex justify-content-between align-items-center pb-0">
 					<h4 class="card-title pl-1">Persebaran</h4>
 					<div class="d-flex gap-2">
@@ -33,6 +35,7 @@
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 	<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
+	<script src="{{ asset('js/extensions/leaflet.legend.js') }}"></script>
 	<script>
 		const gorontaloBounds = L.latLngBounds(
 			L.latLng(1.058404, 121.161003),
@@ -46,12 +49,12 @@
 
 		map.setMaxBounds(gorontaloBounds);
 
-    const geoJsons = @json($geojsons);
+		const geoJsons = @json($geojsons);
 
-    const geoJsonPath = geoJsons.map(geoJson => ({
-      label: 'Merah',
-      path: @json(asset('storage/uploads/geojsons/')) + `/${geoJson.file}`
-    }))
+		const geoJsonPath = geoJsons.map(geoJson => ({
+		label: 'Merah',
+		path: @json(asset('storage/uploads/geojsons/')) + `/${geoJson.file}`
+		}))
 
 		const colors = [{
 				label: 'Merah',
@@ -71,29 +74,36 @@
 		const perpetrators = @json($perpetrators);
 		const route = @json(route('dashboard.master.perpetrators.show', 'uuid'));
 
+		const customIcon = L.icon({
+			iconUrl: '{{ asset('gis/marker.png') }}',
+			iconSize: [16, 16],
+			iconAnchor: [16, 32],
+			popupAnchor: [0, -32]
+		});
+
 		perpetrators.forEach(perpetrator => {
 			const latlng = [perpetrator.latitude, perpetrator.longitude];
-			let marker = L.marker(latlng).addTo(map);
+			let marker = L.marker(latlng, {icon: customIcon}).addTo(map);
 
 			let popupContent = `
-        <div>
-            <div class="d-flex justify-content-between align-items-center gap-1 mb-1">
-                <span>Nama</span>
-                <b>${perpetrator.name}</b>
-            </div>
-            <div class="d-flex justify-content-between align-items-center gap-1 mb-1">
-                <span>Cara</span>
-                <b>${perpetrator.suicide_method}</b>
-            </div>
-            <div class="d-flex justify-content-between align-items-center gap-1 mb-1">
-                <span>Alat</span>
-                <b>${perpetrator.suicide_tool}</b>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-                <a href="${route.replace("uuid", perpetrator.uuid)}">Detail</a>
-            </div>
-        </div>
-    `;
+				<div>
+					<div class="d-flex justify-content-between align-items-center gap-1 mb-1">
+						<span>Nama</span>
+						<b>${perpetrator.name}</b>
+					</div>
+					<div class="d-flex justify-content-between align-items-center gap-1 mb-1">
+						<span>Cara</span>
+						<b>${perpetrator.suicide_method}</b>
+					</div>
+					<div class="d-flex justify-content-between align-items-center gap-1 mb-1">
+						<span>Alat</span>
+						<b>${perpetrator.suicide_tool}</b>
+					</div>
+					<div class="d-flex justify-content-between align-items-center">
+						<a href="${route.replace("uuid", perpetrator.uuid)}">Detail</a>
+					</div>
+				</div>
+			`;
 
 			marker.bindPopup(popupContent);
 
@@ -119,6 +129,30 @@
 		});
 
 		L.Control.geocoder().addTo(map);
+
+		const legend = L.control.Legend({
+            position: "bottomleft",
+            collapsed: false,
+            symbolWidth: 24,
+            opacity: 1,
+            column: 1,
+            legends: [
+				{
+					label: "Lokasi BN",
+					type: "image",
+					url: '{{ asset('gis/marker.png') }}',
+				}, 
+				{
+					label: "Batas Wilayah",
+					type: "polyline",
+					color: "#000",
+					fillColor: "#000",
+					weight: 5,
+					layers: L.polyline(0.5400, 123.0600)
+            	}
+			]
+        })
+        .addTo(map);
 
 		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			minZoom: 9,
