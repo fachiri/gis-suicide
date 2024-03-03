@@ -8,7 +8,7 @@
 @section('content')
 	<section class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card shadow-lg">
 				<div class="card-header">
 					<h4 class="card-title pl-1">Ganti Password</h4>
 				</div>

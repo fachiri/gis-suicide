@@ -10,7 +10,7 @@
 @section('content')
 	<section class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card shadow-lg">
 				<div class="card-header d-flex justify-content-between align-items-center">
 					<h4 class="card-title pl-1">Personal</h4>
 				</div>
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<div class="col-12">
-			<div class="card">
+			<div class="card shadow-lg">
 				<div class="card-header d-flex justify-content-between align-items-center">
 					<h4 class="card-title pl-1">Akun</h4>
 				</div>
@@ -53,7 +53,7 @@
 			</div>
 		</div>
 		<div class="col-12">
-			<div class="card">
+			<div class="card shadow-lg">
 				<div class="card-header d-flex justify-content-between align-items-center">
 					<h4 class="card-title pl-1">Ganti Password</h4>
 				</div>

@@ -12,7 +12,7 @@
 @section('content')
 	<section class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card shadow-lg">
 				<div class="card-header d-flex justify-content-between align-items-center pb-0">
 					<h4 class="card-title pl-1">Persebaran</h4>
 					<div class="d-flex gap-2">
