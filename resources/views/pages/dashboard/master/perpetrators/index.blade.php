@@ -15,7 +15,7 @@
 @section('content')
 	<section class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card shadow-lg">
         <div class="card-header">
 					<h4 class="card-title pl-1">Filter</h4>
 				</div>
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 		<div class="col-12">
-			<div class="card">
+			<div class="card shadow-lg">
         <div class="card-header d-flex justify-content-between align-items-center">
 					<h4 class="card-title pl-1">Daftar Pelaku</h4>
 					<div class="d-flex gap-2">
@@ -65,7 +65,7 @@
 	<script type="text/javascript">
 		$(function() {
 			const table = $('.data-table').DataTable({
-				// processing: true,
+				processing: true,
 				serverSide: true,
 				ajax: "{{ route('dashboard.master.perpetrators.index') }}",
 				columns: [{
@@ -87,7 +87,7 @@
 			});
 
 			$('.filter-select').change(function() {
-				table.column(2).search($(this).val()).draw();
+				table.column(1).search($(this).val()).draw();
 			});
 		});
 	</script>

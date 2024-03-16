@@ -13,7 +13,7 @@
 @section('content')
 	<section class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card shadow-lg">
 				<div class="card-header d-flex justify-content-between align-items-center">
 					<h4 class="card-title pl-1">Form Tambah Pelaku</h4>
 				</div>
@@ -32,6 +32,10 @@
 						]" />
 						<x-form.input type="number" layout="horizontal" name="age" label="Umur" placeholder="Umur.." />
 						<x-form.select layout="horizontal" name="education" label="Pendidikan" :options="[
+							(object) [
+						        'label' => 'Tidak Sekolah',
+						        'value' => 'Tidak Sekolah',
+						    ],
 						    (object) [
 						        'label' => 'SD',
 						        'value' => 'SD',
@@ -43,23 +47,7 @@
 						    (object) [
 						        'label' => 'SMA',
 						        'value' => 'SMA',
-						    ],
-						    (object) [
-						        'label' => 'Diploma',
-						        'value' => 'Diploma',
-						    ],
-						    (object) [
-						        'label' => 'Sarjana',
-						        'value' => 'Sarjana',
-						    ],
-						    (object) [
-						        'label' => 'Magister',
-						        'value' => 'Magister',
-						    ],
-						    (object) [
-						        'label' => 'Doktor',
-						        'value' => 'Doktor',
-						    ],
+						    ]
 						]" />
 						<x-form.textarea layout="horizontal" name="address" label="Alamat" placeholder="Alamat.." />
 						<x-form.select layout="horizontal" name="marital_status" label="Status Pernikahan" :options="[
@@ -103,11 +91,19 @@
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 	<script>
-		var map = L.map('map').setView([0.5400, 123.0600], 13);
+		const gorontaloBounds = L.latLngBounds(
+			L.latLng(1.058404, 121.161003),
+			L.latLng(0.174064, 123.568904)
+		);
+
+		var map = L.map('map', {
+			maxBounds: gorontaloBounds,
+			maxBoundsViscosity: 1.0
+		}).setView([0.5400, 123.0600], 13);
 		var marker = L.marker([0.5400, 123.0600]).addTo(map);
 
 		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			maxZoom: 19,
+			minZoom: 9,
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		}).addTo(map);
 

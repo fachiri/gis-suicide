@@ -60,14 +60,32 @@ class PerpetratorController extends Controller
 
     public function update(UpdatePerpetratorRequest $request, Perpetrator $perpetrator)
     {
-        //
+        try {
+            $perpetrator->name = $request->name;
+            $perpetrator->gender = $request->gender;
+            $perpetrator->age = $request->age;
+            $perpetrator->education = $request->education;
+            $perpetrator->address = $request->address;
+            $perpetrator->marital_status = $request->marital_status;
+            $perpetrator->occupation = $request->occupation;
+            $perpetrator->incident_date = $request->incident_date;
+            $perpetrator->suicide_method = $request->suicide_method;
+            $perpetrator->suicide_tool = $request->suicide_tool;
+            $perpetrator->description = $request->description;
+            $perpetrator->latitude = $request->latitude;
+            $perpetrator->longitude = $request->longitude;
+            $perpetrator->save();
+
+            return redirect()->back()->with('success', 'Data berhasil diperbarui.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors($th->getMessage())->withInput();
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Perpetrator $perpetrator)
     {
-        //
+        $perpetrator->delete();
+
+        return redirect()->route('dashboard.master.perpetrators.index')->with('success', 'Data berhasil dihapus');
     }
 }

@@ -20,7 +20,7 @@
 @section('content')
 	<section class="row">
 		<div class="col-12 col-lg-4">
-			<div class="card">
+			<div class="card shadow-lg">
 				<div class="card-body">
 					<div class="d-flex justify-content-center align-items-center flex-column">
 						<label for="change-profile" class="avatar avatar-2xl" id="profile-label">
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 		<div class="col-12 col-lg-8">
-			<div class="card">
+			<div class="card shadow-lg">
 				<div class="card-body">
 					<x-form.layout.vertical action="{{ route('dashboard.profile.update') }}" method="PUT">
 						<x-form.input name="name" label="Nama Lengkap" :value="$user->name" />
