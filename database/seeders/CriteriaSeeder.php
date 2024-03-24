@@ -114,6 +114,12 @@ class CriteriaSeeder extends Seeder
                 'value' => 4
             ],
             (object) [
+                'criteria' => 'Tidak Diketahui',
+                'type' => 'education',
+                'code' => 'E5',
+                'value' => 4
+            ],
+            (object) [
                 'criteria' => 'Menikah',
                 'type' => 'marital_status',
                 'code' => 'F1',
@@ -123,6 +129,12 @@ class CriteriaSeeder extends Seeder
                 'criteria' => 'Belum Menikah',
                 'type' => 'marital_status',
                 'code' => 'F2',
+                'value' => 4
+            ],
+            (object) [
+                'criteria' => 'Tidak Diketahui',
+                'type' => 'marital_status',
+                'code' => 'F3',
                 'value' => 4
             ],
             (object) [
