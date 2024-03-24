@@ -8,15 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('criterias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('type', 16);
+            $table->string('name', 64);
+            $table->string('code', 2)->unique();
+            $table->unsignedTinyInteger('value');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('criterias');
     }
 };

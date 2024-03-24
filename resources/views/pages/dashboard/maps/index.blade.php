@@ -9,12 +9,23 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 	<link rel="stylesheet" href="{{ asset('css/extensions/leaflet.legend.css') }}">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
+	<style>
+		.title-card {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			background-color: white;
+			padding: 10px;
+			border-radius: 5px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+		}
+	</style>
 @endpush
 @section('content')
 	<section class="row">
 		<div class="col-12">
-			<div class="card shadow-lg
-			">
+			<div class="card shadow-lg">
 				<div class="card-header d-flex justify-content-between align-items-center pb-0">
 					<h4 class="card-title pl-1">Persebaran</h4>
 					<div class="d-flex gap-2">
@@ -35,6 +46,7 @@
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 	<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
+	<script src="https://unpkg.com/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js"></script>
 	<script src="{{ asset('js/extensions/leaflet.legend.js') }}"></script>
 	<script>
 		const gorontaloBounds = L.latLngBounds(
@@ -52,8 +64,8 @@
 		const geoJsons = @json($geojsons);
 
 		const geoJsonPath = geoJsons.map(geoJson => ({
-		label: 'Merah',
-		path: @json(asset('storage/uploads/geojsons/')) + `/${geoJson.file}`
+			area: geoJson.area,
+			path: @json(asset('storage/uploads/geojsons/')) + `/${geoJson.file}`
 		}))
 
 		const colors = [{
@@ -75,34 +87,42 @@
 		const route = @json(route('dashboard.master.perpetrators.show', 'uuid'));
 
 		const customIcon = L.icon({
-			iconUrl: '{{ asset('gis/marker.png') }}',
-			iconSize: [16, 16],
+			iconUrl: `{{ asset('gis/marker7.svg') }}`,
+			iconSize: [32, 32],
 			iconAnchor: [16, 32],
 			popupAnchor: [0, -32]
-		});
+		})
 
 		perpetrators.forEach(perpetrator => {
 			const latlng = [perpetrator.latitude, perpetrator.longitude];
-			let marker = L.marker(latlng, {icon: customIcon}).addTo(map);
+			let marker = L.marker(latlng, {
+				icon: customIcon
+			}).addTo(map);
 
 			let popupContent = `
-				<div>
-					<div class="d-flex justify-content-between align-items-center gap-1 mb-1">
-						<span>Nama</span>
-						<b>${perpetrator.name}</b>
-					</div>
-					<div class="d-flex justify-content-between align-items-center gap-1 mb-1">
-						<span>Cara</span>
-						<b>${perpetrator.suicide_method}</b>
-					</div>
-					<div class="d-flex justify-content-between align-items-center gap-1 mb-1">
-						<span>Alat</span>
-						<b>${perpetrator.suicide_tool}</b>
-					</div>
-					<div class="d-flex justify-content-between align-items-center">
-						<a href="${route.replace("uuid", perpetrator.uuid)}">Detail</a>
-					</div>
-				</div>
+				<table class="table-striped table-sm">
+					<tbody>
+						<tr>
+							<td>Nama</td>
+							<th>${perpetrator.name}</th>
+						</tr>
+						<tr>
+							<td>Cara</td>
+							<th>${perpetrator.suicide_method}</th>
+						</tr>
+						<tr>
+							<td>Alat</td>
+							<th>${perpetrator.suicide_tool}</th>
+						</tr>
+						<tr>
+							<td>
+								<a href="${route.replace("uuid", perpetrator.uuid)}">Detail</a>
+							</td>
+							<td>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			`;
 
 			marker.bindPopup(popupContent);
@@ -112,47 +132,75 @@
 			});
 		});
 
+		function getColor(count) {
+			return count >= 20 ? 'red' :
+				count >= 10 ? 'yellow' :
+				'green';
+		}
+
 		geoJsonPath.forEach((geoJson, index) => {
 			omnivore.geojson(geoJson.path)
 				.on('ready', function() {
-					this.eachLayer(function(layer) {
-						const color = colors.find(c => c.label === geoJson.label).color;
-						layer.setStyle({
-							fillColor: color,
-							color: '#000',
+					this.eachLayer(async function(layer) {
+						let defaultOptions = {
 							fillOpacity: 0.3,
-							weight: .5
+							weight: 1
+						};
+
+						const districtCode = layer?.feature?.properties?.fid
+						const response = await fetch(`/dashboard/maps/perpetrators/count/${districtCode}`, {
+							method: 'GET',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+						});
+						const data = await response.json();
+
+						defaultOptions.fillColor = getColor(data.count)
+
+						layer.setStyle(defaultOptions);
+
+						layer.on('mouseover', function(e) {
+							this.setStyle({
+								fillOpacity: 0.6,
+								weight: 2
+							});
+
+						});
+
+						layer.on('mouseout', function() {
+							this.setStyle(defaultOptions);
 						});
 					});
 				})
 				.addTo(map);
 		});
 
+		const CustomControl = L.Control.extend({
+			onAdd: function(map) {
+				var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control bg-white px-2 py-1');
+				container.innerHTML = `${geoJsons.map(e => `
+								<div class="d-flex gap-2 fw-bold">
+									<label class="form-check-label" for="show-${e.uuid}">
+										${e.area}
+									</label>
+									<input class="form-check-input" type="checkbox" id="show-${e.uuid}" checked>
+								</div>
+							`)}`;
+
+				return container;
+			}
+		});
+		new CustomControl({
+			position: 'bottomleft'
+		}).addTo(map);
+
 		L.Control.geocoder().addTo(map);
 
-		const legend = L.control.Legend({
-            position: "bottomleft",
-            collapsed: false,
-            symbolWidth: 24,
-            opacity: 1,
-            column: 1,
-            legends: [
-				{
-					label: "Lokasi BN",
-					type: "image",
-					url: '{{ asset('gis/marker.png') }}',
-				}, 
-				{
-					label: "Batas Wilayah",
-					type: "polyline",
-					color: "#000",
-					fillColor: "#000",
-					weight: 5,
-					layers: L.polyline(0.5400, 123.0600)
-            	}
-			]
-        })
-        .addTo(map);
+		map.addControl(new L.Control.Fullscreen({
+			position: 'topright',
+			title: 'View Full Screen',
+		}));
 
 		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			minZoom: 9,

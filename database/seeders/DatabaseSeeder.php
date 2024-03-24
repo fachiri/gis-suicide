@@ -12,5 +12,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class);
         $this->call(ManagerSeeder::class);
         $this->call(SettingSeeder::class);
+        $this->call(CriteriaSeeder::class);
     }
 }

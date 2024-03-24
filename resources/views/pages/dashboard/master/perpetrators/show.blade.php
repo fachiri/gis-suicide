@@ -32,15 +32,15 @@
 						</tr>
 						<tr>
 							<th>Jenis Kelamin</th>
-							<td>{{ $perpetrator->gender }}</td>
+							<td>{{ $perpetrator->genderCriteria->name }}</td>
 						</tr>
 						<tr>
 							<th>Umur</th>
-							<td>{{ $perpetrator->age }}</td>
+							<td>{{ $perpetrator->age }} ({{ $perpetrator->ageClassCriteria->name }})</td>
 						</tr>
 						<tr>
 							<th>Pendidikan</th>
-							<td>{{ $perpetrator->education }}</td>
+							<td>{{ $perpetrator->educationCriteria->name }}</td>
 						</tr>
 						<tr>
 							<th>Alamat</th>
@@ -48,11 +48,15 @@
 						</tr>
 						<tr>
 							<th>Status Pernikahan</th>
-							<td>{{ $perpetrator->marital_status }}</td>
+							<td>{{ $perpetrator->maritalStatusCriteria->name }}</td>
 						</tr>
 						<tr>
 							<th>Pekerjaan</th>
-							<td>{{ $perpetrator->occupation }}</td>
+							<td>{{ $perpetrator->occupationCriteria->name }}</td>
+						</tr>
+						<tr>
+							<th>Status Ekonomi</th>
+							<td>{{ $perpetrator->economicStatusCriteria->name }}</td>
 						</tr>
 						<tr>
 							<th>Tanggal Kasus</th>
@@ -67,8 +71,12 @@
 							<td>{{ $perpetrator->suicide_tool }}</td>
 						</tr>
 						<tr>
+							<th>Motif</th>
+							<td>{{ $perpetrator->motiveCriteria->name }}</td>
+						</tr>
+						<tr>
 							<th>Keterangan</th>
-							<td>{{ $perpetrator->description }}</td>
+							<td>{{ $perpetrator->description ?? '-' }}</td>
 						</tr>
 						<tr>
 							<th>Lokasi</th>

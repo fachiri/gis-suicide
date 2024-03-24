@@ -33,9 +33,10 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['web', 'auth'])->gro
         Route::put('/users/{user}/update/password', [UserController::class, 'update_password'])->name('user.update.password');
         Route::resource('/perpetrators', PerpetratorController::class)->names('perpetrators');
     });
-    Route::prefix('maps')->name('maps.')->middleware(['roles:' . UserRole::ADMIN])->group(function () {
+    Route::prefix('maps')->name('maps.')->group(function () {
         Route::get('/', [MapController::class, 'index'])->name('index');
         Route::resource('/geojson', GeojsonController::class)->names('geojson');
+        Route::get('/perpetrators/count/{districtCode}', [PerpetratorController::class, 'count'])->name('perpetrators.count');
     });
     Route::prefix('admins')->name('admins.')->middleware(['roles:' . UserRole::MANAGER])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('index');

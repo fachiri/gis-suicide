@@ -14,14 +14,18 @@ class Perpetrator extends Model
         'name',
         'gender',
         'age',
+        'age_class',
         'education',
         'address',
         'marital_status',
         'occupation',
+        'economic_status',
         'incident_date',
         'suicide_method',
         'suicide_tool',
+        'motive',
         'description',
+        'district_code',
         'latitude',
         'longitude'
     ];
@@ -39,5 +43,40 @@ class Perpetrator extends Model
                 $model->uuid = (string) Uuid::uuid4();
             }
         });
+    }
+
+    public function genderCriteria()
+    {
+        return $this->belongsTo(Criteria::class, 'gender');
+    }
+
+    public function ageClassCriteria()
+    {
+        return $this->belongsTo(Criteria::class, 'age_class');
+    }
+
+    public function educationCriteria()
+    {
+        return $this->belongsTo(Criteria::class, 'education');
+    }
+
+    public function maritalStatusCriteria()
+    {
+        return $this->belongsTo(Criteria::class, 'marital_status');
+    }
+
+    public function occupationCriteria()
+    {
+        return $this->belongsTo(Criteria::class, 'occupation');
+    }
+
+    public function economicStatusCriteria()
+    {
+        return $this->belongsTo(Criteria::class, 'economic_status');
+    }
+
+    public function motiveCriteria()
+    {
+        return $this->belongsTo(Criteria::class, 'motive');
     }
 }

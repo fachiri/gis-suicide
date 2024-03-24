@@ -50,6 +50,12 @@
 							<tr>
 								<th>Nama</th>
 								<th>Jenis Kelamin</th>
+								<th>Usia</th>
+								<th>Pendidikan</th>
+								<th>Status Pernikahan</th>
+								<th>Pekerjaan</th>
+								<th>Status Ekonomi</th>
+								<th>Motif</th>
 								<th style="white-space: nowrap">Aksi</th>
 							</tr>
 						</thead>
@@ -75,6 +81,36 @@
 					{
 						data: 'gender',
 						name: 'gender',
+						orderable: false,
+					},
+					{
+						data: 'age_class',
+						name: 'age_class',
+						orderable: false,
+					},
+					{
+						data: 'education',
+						name: 'education',
+						orderable: false,
+					},
+					{
+						data: 'marital_status',
+						name: 'marital_status',
+						orderable: false,
+					},
+					{
+						data: 'occupation',
+						name: 'occupation',
+						orderable: false,
+					},
+					{
+						data: 'economic_status',
+						name: 'economic_status',
+						orderable: false,
+					},
+					{
+						data: 'motive',
+						name: 'motive',
 						orderable: false,
 					},
 					{

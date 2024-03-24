@@ -72,7 +72,7 @@
 							<p>2024 &copy; {{ $setting->app_name }}</p>
 						</div>
 						<div class="float-end">
-							<p>Developed by <a href="https://jejakode.com">jejakode.com</a></p>
+							{{-- <p>Developed by <a href="https://jejakode.com">jejakode.com</a></p> --}}
 						</div>
 					</div>
 				</footer>
