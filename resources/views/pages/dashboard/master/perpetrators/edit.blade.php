@@ -47,12 +47,6 @@
 						        'value' => $item->id,
 						    ];
 						})" />
-						<x-form.select layout="horizontal" name="economic_status" label="Status Ekonomi" :value="$perpetrator->economic_status" :options="$economicStatus->map(function ($item) {
-						    return (object) [
-						        'label' => $item->name,
-						        'value' => $item->id,
-						    ];
-						})" />
 						<x-form.input type="date" layout="horizontal" name="incident_date" label="Tanggal Kasus" placeholder="Tanggal Kasus.." :value="$perpetrator->incident_date" />
 						<x-form.input layout="horizontal" name="suicide_method" label="Cara Bunuh Diri" placeholder="Cara Bunuh Diri.." :value="$perpetrator->suicide_method" />
 						<x-form.input layout="horizontal" name="suicide_tool" label="Media/Alat" placeholder="Media/Alat.." :value="$perpetrator->suicide_tool" />

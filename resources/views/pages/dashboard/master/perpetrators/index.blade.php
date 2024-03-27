@@ -54,7 +54,6 @@
 								<th>Pendidikan</th>
 								<th>Status Pernikahan</th>
 								<th>Pekerjaan</th>
-								<th>Status Ekonomi</th>
 								<th>Motif</th>
 								<th style="white-space: nowrap">Aksi</th>
 							</tr>
@@ -101,11 +100,6 @@
 					{
 						data: 'occupation',
 						name: 'occupation',
-						orderable: false,
-					},
-					{
-						data: 'economic_status',
-						name: 'economic_status',
 						orderable: false,
 					},
 					{

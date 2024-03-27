@@ -19,7 +19,6 @@ class Perpetrator extends Model
         'address',
         'marital_status',
         'occupation',
-        'economic_status',
         'incident_date',
         'suicide_method',
         'suicide_tool',
@@ -68,11 +67,6 @@ class Perpetrator extends Model
     public function occupationCriteria()
     {
         return $this->belongsTo(Criteria::class, 'occupation');
-    }
-
-    public function economicStatusCriteria()
-    {
-        return $this->belongsTo(Criteria::class, 'economic_status');
     }
 
     public function motiveCriteria()

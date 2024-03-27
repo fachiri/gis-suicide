@@ -22,12 +22,12 @@ class StorePerpetratorRequest extends FormRequest
             'address' => 'required|string|max:255',
             'marital_status' => 'required|string',
             'occupation' => 'required|string|max:255',
-            'economic_status' => 'required|string',
             'incident_date' => 'required|date',
             'suicide_method' => 'required|string|max:255',
             'suicide_tool' => 'required|string|max:255',
             'motive' => 'required|string',
             'description' => 'nullable|string',
+            'district_code' => 'required',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
         ];

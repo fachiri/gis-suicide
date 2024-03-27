@@ -35,9 +35,6 @@ class PerpetratorController extends Controller
                 ->addColumn('occupation', function ($row) {
                     return $row->occupationCriteria->name;
                 })
-                ->addColumn('economic_status', function ($row) {
-                    return $row->economicStatusCriteria->name;
-                })
                 ->addColumn('motive', function ($row) {
                     return $row->motiveCriteria->name;
                 })
@@ -64,9 +61,8 @@ class PerpetratorController extends Controller
         $motives = Criteria::where('type', 'motive')->get();
         $educations = Criteria::where('type', 'education')->get();
         $maritalStatus = Criteria::where('type', 'marital_status')->get();
-        $economicStatus = Criteria::where('type', 'economic_status')->get();
 
-        return view('pages.dashboard.master.perpetrators.create', compact('districts', 'genders', 'occupations', 'motives', 'educations', 'maritalStatus', 'economicStatus'));
+        return view('pages.dashboard.master.perpetrators.create', compact('districts', 'genders', 'occupations', 'motives', 'educations', 'maritalStatus'));
     }
 
     public function store(StorePerpetratorRequest $request)
@@ -96,9 +92,8 @@ class PerpetratorController extends Controller
         $motives = Criteria::where('type', 'motive')->get();
         $educations = Criteria::where('type', 'education')->get();
         $maritalStatus = Criteria::where('type', 'marital_status')->get();
-        $economicStatus = Criteria::where('type', 'economic_status')->get();
 
-        return view('pages.dashboard.master.perpetrators.edit', compact('perpetrator', 'districts', 'genders', 'occupations', 'motives', 'educations', 'maritalStatus', 'economicStatus'));
+        return view('pages.dashboard.master.perpetrators.edit', compact('perpetrator', 'districts', 'genders', 'occupations', 'motives', 'educations', 'maritalStatus'));
     }
 
     public function update(UpdatePerpetratorRequest $request, Perpetrator $perpetrator)
@@ -112,7 +107,6 @@ class PerpetratorController extends Controller
             $perpetrator->address = $request->address;
             $perpetrator->marital_status = $request->marital_status;
             $perpetrator->occupation = $request->occupation;
-            $perpetrator->economic_status = $request->economic_status;
             $perpetrator->incident_date = $request->incident_date;
             $perpetrator->suicide_method = $request->suicide_method;
             $perpetrator->suicide_tool = $request->suicide_tool;

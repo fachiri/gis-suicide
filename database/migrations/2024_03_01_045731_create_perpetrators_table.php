@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('address');
             $table->foreignId('marital_status')->constrained('criterias')->onDelete('cascade');
             $table->foreignId('occupation')->constrained('criterias')->onDelete('cascade');
-            $table->foreignId('economic_status')->constrained('criterias')->onDelete('cascade');;
             $table->date('incident_date');
             $table->string('suicide_method');
             $table->string('suicide_tool');

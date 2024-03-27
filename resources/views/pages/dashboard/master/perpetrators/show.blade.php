@@ -55,10 +55,6 @@
 							<td>{{ $perpetrator->occupationCriteria->name }}</td>
 						</tr>
 						<tr>
-							<th>Status Ekonomi</th>
-							<td>{{ $perpetrator->economicStatusCriteria->name }}</td>
-						</tr>
-						<tr>
 							<th>Tanggal Kasus</th>
 							<td>{{ $perpetrator->incident_date }}</td>
 						</tr>
