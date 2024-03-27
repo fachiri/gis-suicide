@@ -133,9 +133,9 @@
 		});
 
 		function getColor(count) {
-			return count >= 10 ? 'red' :
-				count >= 5 ? 'yellow' :
-				'green';
+			return count >= 10 ? '#dc3b45' :
+				count >= 5 ? '#ffc23d' :
+				'#368755';
 		}
 
 		geoJsonPath.forEach((geoJson, index) => {
