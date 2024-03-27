@@ -48,6 +48,8 @@
 
 			.content th {
 				background-color: #f2f2f2;
+				text-align: center;
+				font-size: .9rem;
 			}
 		</style>
 	</head>

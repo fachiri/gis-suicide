@@ -51,6 +51,8 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['web', 'auth'])->gro
     Route::prefix('reports')->name('reports.')->middleware(['roles:' . UserRole::MANAGER])->group(function () {
         Route::get('/users', [ReportController::class, 'users'])->name('users');
         Route::get('/users/pdf/preview', [ReportController::class, 'users_pdf_preview'])->name('users.pdf.preview');
+        Route::get('/perpetrators', [ReportController::class, 'perpetrators'])->name('perpetrators');
+        Route::get('/perpetrators/pdf/preview', [ReportController::class, 'perpetrators_pdf_preview'])->name('perpetrators.pdf.preview');
     });
     Route::prefix('profile')->name('profile.')->middleware([])->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('index');

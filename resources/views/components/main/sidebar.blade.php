@@ -56,6 +56,12 @@
 	                'hasSubItems' => false,
 	                'link' => route('dashboard.reports.users'),
 	            ],
+	            (object) [
+	                'label' => 'Pelaku',
+	                'icon' => 'bi bi-people-fill',
+	                'hasSubItems' => false,
+	                'link' => route('dashboard.reports.perpetrators'),
+	            ]
 	        ],
 	    ],
 	    (object) [
