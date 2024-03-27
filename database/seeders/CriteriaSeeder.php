@@ -24,6 +24,12 @@ class CriteriaSeeder extends Seeder
                 'value' => 5
             ],
             (object) [
+                'criteria' => 'Tidak Diketahui',
+                'type' => 'gender',
+                'code' => 'A3',
+                'value' => 5
+            ],
+            (object) [
                 'criteria' => 'Wirausaha',
                 'type' => 'occupation',
                 'code' => 'B1',
@@ -54,6 +60,12 @@ class CriteriaSeeder extends Seeder
                 'value' => 3
             ],
             (object) [
+                'criteria' => 'Tidak Diketahui',
+                'type' => 'occupation',
+                'code' => 'B5',
+                'value' => 3
+            ],
+            (object) [
                 'criteria' => 'Trauma',
                 'type' => 'motive',
                 'code' => 'C1',
@@ -69,6 +81,12 @@ class CriteriaSeeder extends Seeder
                 'criteria' => 'Asmara',
                 'type' => 'motive',
                 'code' => 'C3',
+                'value' => 5
+            ],
+            (object) [
+                'criteria' => 'Tidak Diketahui',
+                'type' => 'motive',
+                'code' => 'C4',
                 'value' => 5
             ],
             (object) [
@@ -136,25 +154,7 @@ class CriteriaSeeder extends Seeder
                 'type' => 'marital_status',
                 'code' => 'F3',
                 'value' => 4
-            ],
-            (object) [
-                'criteria' => 'Ekonomi Kelas Menengah',
-                'type'=> 'economic_status',
-                'code' => 'G2',
-                'value' => 4
-            ],
-            (object) [
-                'criteria' => 'Ekonomi Kelas Bawah',
-                'type'=> 'economic_status',
-                'code' => 'G3',
-                'value' => 4
-            ],
-            (object) [
-                'criteria' => 'Ekonomi Kelas Atas',
-                'type'=> 'economic_status',
-                'code' => 'G1',
-                'value' => 3
-            ],
+            ]
         ];
 
         foreach ($items as $item) {
