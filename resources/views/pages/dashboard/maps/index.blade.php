@@ -133,8 +133,8 @@
 		});
 
 		function getColor(count) {
-			return count >= 20 ? 'red' :
-				count >= 10 ? 'yellow' :
+			return count >= 10 ? 'red' :
+				count >= 5 ? 'yellow' :
 				'green';
 		}
 
@@ -180,13 +180,13 @@
 			onAdd: function(map) {
 				var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control bg-white px-2 py-1');
 				container.innerHTML = `${geoJsons.map(e => `
-								<div class="d-flex gap-2 fw-bold">
-									<label class="form-check-label" for="show-${e.uuid}">
-										${e.area}
-									</label>
-									<input class="form-check-input" type="checkbox" id="show-${e.uuid}" checked>
-								</div>
-							`)}`;
+									<div class="d-flex gap-2 fw-bold">
+										<label class="form-check-label" for="show-${e.uuid}">
+											${e.area}
+										</label>
+										<input class="form-check-input" type="checkbox" id="show-${e.uuid}" checked>
+									</div>
+								`)}`;
 
 				return container;
 			}
